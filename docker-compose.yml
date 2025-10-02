@@ -1,0 +1,48 @@
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: faa_postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  api_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: faa_api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    container_name: faa_streamlit
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api_service
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app/app
+    command: streamlit run app/1_Home.py --server.address 0.0.0.0 --server.port 8501
+
+volumes:
+  postgres_data:

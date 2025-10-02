@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+streamlit
+pandas
+python-dotenv
+requests
+openpyxl
+pyarrow
+sqlalchemy>=2.0
+psycopg[binary]
