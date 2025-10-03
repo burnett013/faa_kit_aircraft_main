@@ -2,6 +2,13 @@
 __pycache__/
 .venv/
 *.pyc
-data/
+
+# Ignore all data by default
+data/*
+
+# But keep demo.xlsx
+!data/demo.xlsx
+
+# Environment files
 .env
 !.env.example
