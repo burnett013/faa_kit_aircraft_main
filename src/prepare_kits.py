@@ -11,7 +11,6 @@ NEEDED = [
     "ACFTCAT","NO-SEATS","AC-WEIGHT","ENGCAT",
     "SURFCAT","NO-ENG","CITY","STATE","ZIP_MIN",
     "KITMFG","KITMDL","MODE S CODE",
-    # dates/year back in:
     "YEAR MFR","LAST ACTION DATE","CERT ISSUE DATE","AIR WORTH DATE",
 ]
 
