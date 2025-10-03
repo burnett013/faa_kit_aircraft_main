@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from pathlib import Path
 
-SRC = os.environ.get("DATA_XLSX", "/app/data/kits_cleaned.xlsx")
+SRC = os.environ.get("DATA_XLSX", "/app/data/demo.xlsx")
 OUT = os.environ.get("DATA_OUT", "/app/data/processed/kits_prepared.parquet")
 
 NEEDED = [
