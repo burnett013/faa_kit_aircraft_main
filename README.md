@@ -1,5 +1,5 @@
 # FAA Kit Aircraft Database Explorer
-##### Build In Texas by JABurnett (Updated 9/2025)
+##### Build In Texas by JABurnett (Updated 10/2025)
 
 A Streamlit + FastAPI + PostgreSQL application for exploring and visualizing **FAA-registered kit-built aircraft** in the United States.  
 This project lets users search, filter, and analyze data on experimental aircraft manufacturers, models, and registration trends.
@@ -22,15 +22,77 @@ This app demonstrates a clean **Python data pipeline** with:
 
 ---
 
+## 🚀 Quick Start Guide
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/burnett013/faa_kit_aircraft_main.git
+cd faa_kit_aircraft_main
+```
+2️⃣ Create Environment File
+`
+cp .env.example .env
+`
+
+3️⃣ Build the Docker Containers
+`
+docker compose build
+`
+
+4️⃣ Start the Services
+`
+docker compose up
+`
+This will launch:
+	• FastAPI backend → `http://localhost:8000`
+	• Streamlit frontend → `http://localhost:8501`
+	• PostgreSQL database → `localhost:5432`
+
+The app automatically connects to the Postgres container using environment variables defined in docker-compose.yml.
+
+5️⃣ Access the App
+`
+http://localhost:8501
+`
+
+6️⃣ Stop Containers
+`
+docker compose down
+`
+
+To remove volumes (optional cleanup):
+docker compose down -v
+
+Project Structure
+```
+faa_kit_aircraft_main/
+├── app/
+│   ├── 1_Home.py            # Streamlit dashboard
+│   ├── pages/               # Additional Streamlit pages
+│   ├── utils/               # Helper functions
+│   └── assets/              # Images and static files
+│
+├── src/
+│   ├── main.py              # FastAPI entry point
+│   ├── db.py, crud.py       # Database logic
+│   ├── schemas.py, models.py# SQLAlchemy + Pydantic models
+│   └── ingest_kits.py       # Ingest and prep FAA data
+│
+├── docker-compose.yml        # Defines API, Streamlit, DB containers
+├── Dockerfile.api            # FastAPI container
+├── Dockerfile.streamlit      # Streamlit container
+├── requirements.txt          # Python dependencies
+└── README.md
+```
 ## 🧠 How It Works
 
-### Architecture Overview
-
+## Architecture Overview
+```
 +———––+        +———––+        +—————+
 |  Streamlit  | <––> |   FastAPI   | <––> |   PostgreSQL   |
 |  Frontend   |        |  Backend    |        |   Database     |
 +———––+        +———––+        +—————+
-
+```
 1. **Data Preparation** (`prepare_kits.py` / `ingest_kits.py`):
    - Cleans and normalizes raw FAA registration data.
    - Trims whitespace, standardizes case, and selects only kit-built aircraft.

@@ -5,7 +5,8 @@ from sqlalchemy import text
 from sqlalchemy.engine import Engine
 from db import engine
 
-PARQUET_PATH = "/app/data/processed/kits_prepared.parquet"
+# PARQUET_PATH = "/app/data/processed/kits_prepared.parquet"
+PARQUET_PATH = os.getenv("DATA_OUT", "/app/data/processed/kits_prepared.parquet")
 
 def load_raw(engine: Engine, path: str):
     if not os.path.exists(path):
